@@ -1,4 +1,4 @@
-package de.entities;
+package de.application.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,12 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Entity
-public class Wetterdaten implements Serializable {
+@Table
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Weatherdata implements Serializable {
 
 	/**
 	 * 
@@ -52,7 +56,7 @@ public class Wetterdaten implements Serializable {
 	private double speed;
 	private Integer deg;
 
-	public Wetterdaten(long id, String name, Date timezone, Date dt, String base, int visibility, long cod, double lon,
+	public Weatherdata(long id, String name, Date timezone, Date dt, String base, int visibility, long cod, double lon,
 			double lat) {
 		super();
 		this.id = id;
@@ -66,7 +70,7 @@ public class Wetterdaten implements Serializable {
 		this.lat = lat;
 	}
 
-	public Wetterdaten() {
+	public Weatherdata() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -1,4 +1,4 @@
-package de.errors;
+package de.application.errors;
 
 import java.util.Map;
 
