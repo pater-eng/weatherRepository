@@ -10,6 +10,8 @@ public interface WeatherService {
 
 	public Weatherdata saveWeatherdata(Weatherdata daten);
 
+	public List<Weatherdata> saveAllWeatherdata(Weatherdata daten);
+
 	public Weatherdata updateWeatherdata(Weatherdata daten);
 
 	public List<Weatherdata> listWeatherdata();

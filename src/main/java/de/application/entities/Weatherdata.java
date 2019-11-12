@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,7 +28,9 @@ public class Weatherdata implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
+	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
 	private long id;
 	private String name;
 	private Date timezone; // timezone
@@ -54,7 +58,42 @@ public class Weatherdata implements Serializable {
 	private double temp_max;
 
 	private double speed;
+	// private Integer speedy;
 	private Integer deg;
+
+	public Weatherdata(long id, String name, Date timezone, Date dt, String base, int visibility, Long cod, double lon,
+			double lat, String countryCode, long sunrise, long sunset, long weatherId, String icon, String main,
+			String description, double temperature, Integer pressure, Integer humidity, double temp_min,
+			double temp_max, double speed, Integer deg) {
+		super();
+		this.id = getId();
+		this.name = getName();
+		this.timezone = getTimezone();
+		this.dt = getDt();
+		this.base = getBase();
+		this.visibility = getVisibility();
+		this.cod = getCod();
+		this.lon = getLon();
+		this.lat = getLat();
+		this.countryCode = getCountryCode();
+		this.sunrise = getSunrise();
+		this.sunset = getSunset();
+		this.weatherId = weatherId;
+		this.icon = getIcon();
+		this.main = main;
+		this.description = getDescription();
+		this.temperature = getTemperature();
+		this.pressure = getPressure();
+		this.humidity = getHumidity();
+		this.temp_min = getTemp_min();
+		this.temp_max = getTemp_max();
+		this.speed = getSpeed();
+		this.deg = getDeg();
+	}
+
+	public String getIcon() {
+		return icon;
+	}
 
 	public Weatherdata(long id, String name, Date timezone, Date dt, String base, int visibility, long cod, double lon,
 			double lat) {
@@ -288,6 +327,16 @@ public class Weatherdata implements Serializable {
 		this.speed = speed;
 	}
 
+	// @JsonProperty("speed")
+	// public Integer getSpeedy() {
+	// return speedy;
+	// }
+	//
+	// @JsonSetter("speed")
+	// public void setSpeedy(Integer speedy) {
+	// this.speedy = speedy;
+	// }
+
 	@JsonProperty("deg")
 	public Integer getDeg() {
 		return deg;
@@ -332,7 +381,16 @@ public class Weatherdata implements Serializable {
 
 	@JsonProperty("wind")
 	public void setWind(Map<String, Object> wind) {
+		// yaounde, dortmund...
+
+		// if (speed == Double.valueOf(speed)) {
+
 		setSpeed((double) wind.get("speed"));
+		// } else if (speedy == Integer.valueOf(speedy)) {
+
+		// setSpeed((Integer) wind.get("speed"));
+
+		// }
 		setDeg((Integer) wind.get("deg"));
 
 	}
