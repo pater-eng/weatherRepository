@@ -47,12 +47,11 @@ public class WeatherClient {
 		String resourceURL = BASE_RESOURCE_URL + name + APIKEY_URL + apiKey;
 		HttpEntity<Weatherdata> entity = new HttpEntity<Weatherdata>(headers);
 
-		ResponseEntity<Weatherdata> response = restTemplate.exchange(resourceURL, HttpMethod.GET, entity,
+		ResponseEntity<Weatherdata> response = restTemplate.exchange(resourceURL, HttpMethod.POST, entity,
 				Weatherdata.class);
 		System.out.println("REPONSE: " + response);
 		if (response != null) {
 			daten = response.getBody();
-			service.saveWeatherdata(daten);
 		}
 		return daten;
 	}

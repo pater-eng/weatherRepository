@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.application.entities.Weatherdata;
+import de.application.repositories.WeatherRepository;
 import de.application.services.WeatherService;
 
 @RestController
@@ -19,7 +19,7 @@ import de.application.services.WeatherService;
 public class WeatherController {
 
 	@Autowired
-	private WeatherClient client;
+	private WeatherRepository repo;
 
 	@Autowired
 	private WeatherProperties props;
@@ -61,35 +61,37 @@ public class WeatherController {
 		return builder.toString();
 	}
 
+	// Test: OK
 	@RequestMapping(value = "/weather/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Weatherdata getCityName(@PathVariable String name) {
-		return client.searchCityName(name);
+		return service.findCityWithName(name);
 
 	}
 
+	// Test: OK
 	@RequestMapping(value = "/allWeather", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Weatherdata> getListAllWeatherFavoriten() {
 		return service.listWeatherdata();
 
 	}
 
-	@RequestMapping(value = "/saveWeather", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Weatherdata saveWeatherdata(@RequestBody Weatherdata daten) {
-		return service.saveWeatherdata(daten);
-
+	// Test: OK
+	@RequestMapping(value = "/saveWeatherdata/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Weatherdata saveWeatherdata(@PathVariable String name) {
+		return service.saveWeather(name);
 	}
 
-	@RequestMapping(value = "/saveAllWeather", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Weatherdata> saveAllWeatherdata(@RequestBody Weatherdata daten) {
-		return service.saveAllWeatherdata(daten);
-
-	}
-
+	// Test: Ok
 	@RequestMapping(value = "/updateWeather/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Weatherdata updateWeatherdata(@RequestBody Weatherdata daten, @PathVariable String name) {
-		daten.setName(name);
-		return service.updateWeatherdata(daten);
+	public Weatherdata updateWeatherdata(@PathVariable String name) {
+		return service.updateWeatherdata(name);
 
 	}
 
+	// Test: fast Ok, muss noch nachgeschaut werden
+	@RequestMapping(value = "/saveAllWeather", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Weatherdata> saveAllWeatherdata(String name) {
+		return service.saveAllWeatherdata(name);
+
+	}
 }

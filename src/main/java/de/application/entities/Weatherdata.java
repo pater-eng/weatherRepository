@@ -31,16 +31,16 @@ public class Weatherdata implements Serializable {
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
 	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
-	private long id;
+	private Long id;
 	private String name;
-	private Date timezone; // timezone
-	private Date dt; // dt
-	private String base; // Stations
-	private int visibility; // Visibility
+	private Date timezone;
+	private Date dt;
+	private String base;
+	private int visibility;
 	private Long cod;
 
-	private double lon; // Geografische Lage der Stadt, Laengengrad
-	private double lat; // Geografische Lage der Stadt, Breitengrad
+	private double lon;
+	private double lat;
 
 	private String countryCode;
 	private long sunrise;
@@ -57,11 +57,11 @@ public class Weatherdata implements Serializable {
 	private double temp_min;
 	private double temp_max;
 
-	private double speed;
-	// private Integer speedy;
+	private Double speed;
+	private Integer speedy;
 	private Integer deg;
 
-	public Weatherdata(long id, String name, Date timezone, Date dt, String base, int visibility, Long cod, double lon,
+	public Weatherdata(Long id, String name, Date timezone, Date dt, String base, int visibility, Long cod, double lon,
 			double lat, String countryCode, long sunrise, long sunset, long weatherId, String icon, String main,
 			String description, double temperature, Integer pressure, Integer humidity, double temp_min,
 			double temp_max, double speed, Integer deg) {
@@ -111,7 +111,6 @@ public class Weatherdata implements Serializable {
 
 	public Weatherdata() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getName() {
@@ -318,24 +317,24 @@ public class Weatherdata implements Serializable {
 	}
 
 	@JsonProperty("speed")
-	public double getSpeed() {
+	public Double getSpeed() {
 		return speed;
 	}
 
 	@JsonSetter("speed")
-	public void setSpeed(double speed) {
+	public void setSpeed(Double speed) {
 		this.speed = speed;
 	}
 
 	// @JsonProperty("speed")
-	// public Integer getSpeedy() {
-	// return speedy;
-	// }
-	//
+	public Integer getSpeedy() {
+		return speedy;
+	}
+
 	// @JsonSetter("speed")
-	// public void setSpeedy(Integer speedy) {
-	// this.speedy = speedy;
-	// }
+	public void setSpeedy(Integer speedy) {
+		this.speedy = speedy;
+	}
 
 	@JsonProperty("deg")
 	public Integer getDeg() {
@@ -381,15 +380,14 @@ public class Weatherdata implements Serializable {
 
 	@JsonProperty("wind")
 	public void setWind(Map<String, Object> wind) {
-		// yaounde, dortmund...
 
-		// if (speed == Double.valueOf(speed)) {
+		// if (speed instanceof Double) {
 
 		setSpeed((double) wind.get("speed"));
-		// } else if (speedy == Integer.valueOf(speedy)) {
-
-		// setSpeed((Integer) wind.get("speed"));
-
+		// } else if (speedy instanceof Integer) {
+		//
+		// setSpeedy((Integer) wind.get("speed"));
+		//
 		// }
 		setDeg((Integer) wind.get("deg"));
 

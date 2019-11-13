@@ -6,13 +6,14 @@ import de.application.entities.Weatherdata;
 
 public interface WeatherService {
 
-	public Weatherdata findCityWithName(String stadtName);
+	public Weatherdata findCityWithName(String name);
 
-	public Weatherdata saveWeatherdata(Weatherdata daten);
+	public Weatherdata saveWeather(String name);
 
-	public List<Weatherdata> saveAllWeatherdata(Weatherdata daten);
-
-	public Weatherdata updateWeatherdata(Weatherdata daten);
+	public Weatherdata updateWeatherdata(String name);
 
 	public List<Weatherdata> listWeatherdata();
+
+	public List<Weatherdata> saveAllWeatherdata(String name);
+
 }
