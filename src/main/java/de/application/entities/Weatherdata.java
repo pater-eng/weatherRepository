@@ -402,4 +402,14 @@ public class Weatherdata implements Serializable {
 		setDeg((Integer) wind.get("deg"));
 
 	}
+
+	@Override
+	public String toString() {
+		return "Weatherdata [id=" + id + ", name=" + name + ", timezone=" + timezone + ", dt=" + dt + ", base=" + base
+				+ ", visibility=" + visibility + ", cod=" + cod + ", lon=" + lon + ", lat=" + lat + ", countryCode="
+				+ countryCode + ", sunrise=" + sunrise + ", sunset=" + sunset + ", weatherId=" + weatherId + ", icon="
+				+ icon + ", main=" + main + ", description=" + description + ", temperature=" + temperature
+				+ ", pressure=" + pressure + ", humidity=" + humidity + ", temp_min=" + temp_min + ", temp_max="
+				+ temp_max + ", speed=" + speed + ", speedy=" + speedy + ", deg=" + deg + ", value=" + value + "]";
+	}
 }

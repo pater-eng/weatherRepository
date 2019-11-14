@@ -32,32 +32,52 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	public Weatherdata saveWeather(String name) {
 		Weatherdata data = client.searchCityName(name);
-		if (isFavorite) {
+		if (!this.listWeatherdata().contains(data)) {
 			favoriten.add(data);
 			for (int i = 0; i < favoriten.size(); i++) {
 				return weatherRepo.save(favoriten.get(i));
+
 			}
+		} else {
 
 		}
-		return weatherRepo.save(data);
+		return data;
 	}
 
 	@Override
-	public Weatherdata updateWeatherdata(String name) {
-		Weatherdata daten = null;
+	public Weatherdata updateWeatherdata(String name, Weatherdata daten, Long id) {
+		Weatherdata weather = null;
 		for (int i = 0; i < listWeatherdata().size(); i++) {
-			daten = listWeatherdata().get(i);
-			if (daten.getName().equals(name)) {
-				for (int f = 0; f < favoriten.size(); f++) {
-					if (favoriten.contains(daten)) {
-						return weatherRepo.save(favoriten.get(f));
-					}
-				}
+			weather = listWeatherdata().get(i);
+			if (weather.getName().equals(name) && weather.getId() == id) {
+				weather.setBase(daten.getBase());
+				weather.setCod(daten.getCod());
+				weather.setDeg(daten.getDeg());
+				weather.setDescription(daten.getDescription());
+				weather.setDt(daten.getDt());
+				weather.setHumidity(daten.getHumidity());
+				weather.setIcon(daten.getIcon());
+				weather.setId(daten.getId());
+				weather.setLat(daten.getLat());
+				weather.setLon(daten.getLon());
+				weather.setName(daten.getName());
+				weather.setPressure(daten.getPressure());
+				// weather.setSpeed(daten.getSpeed()); // Darf nicht null sein
+				weather.setSunrise(daten.getSunrise());
+				weather.setSunset(daten.getSunset());
+				weather.setTemp_max(daten.getTemp_max());
+				weather.setTemp_min(daten.getTemp_min());
+				weather.setTemperature(daten.getTemperature());
+				weather.setTimezone(daten.getTimezone());
+				weather.setVisibility(daten.getVisibility());
+				weather.setCountryCode(daten.getCountryCode());
 
+				weatherRepo.save(weather);
+
+				break;
 			}
-
 		}
-		return weatherRepo.save(daten);
+		return weather;
 
 	}
 

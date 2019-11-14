@@ -10,8 +10,8 @@ import de.application.entities.Weatherdata;
 
 public interface WeatherRepository extends JpaRepository<Weatherdata, Long> {
 
-	@Query("select w from Weatherdata w where w.name like :w")
-	public Weatherdata findByName(@Param("w") String name);
+	@Query(value = "select * from Weatherdata w where w.name like=:nom", nativeQuery = true)
+	public Weatherdata findByName(@Param("nom") String name);
 
 	public Weatherdata save(String name);
 

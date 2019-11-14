@@ -10,7 +10,7 @@ public interface WeatherService {
 
 	public Weatherdata saveWeather(String name);
 
-	public Weatherdata updateWeatherdata(String name);
+	public Weatherdata updateWeatherdata(String name, Weatherdata daten, Long id);
 
 	public List<Weatherdata> listWeatherdata();
 
