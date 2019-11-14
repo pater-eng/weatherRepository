@@ -11,15 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.application.entities.Weatherdata;
-import de.application.repositories.WeatherRepository;
 import de.application.services.WeatherService;
 
 @RestController
 @RequestMapping("/api")
 public class WeatherController {
-
-	@Autowired
-	private WeatherRepository repo;
 
 	@Autowired
 	private WeatherProperties props;
@@ -76,22 +72,17 @@ public class WeatherController {
 	}
 
 	// Test: OK
-	@RequestMapping(value = "/saveWeatherdata/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/saveWeatherdata/{name}", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Weatherdata saveWeatherdata(@PathVariable String name) {
 		return service.saveWeather(name);
 	}
 
 	// Test: Ok
-	@RequestMapping(value = "/updateWeather/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/updateWeather/{name}", method = { RequestMethod.GET,
+			RequestMethod.PUT }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Weatherdata updateWeatherdata(@PathVariable String name) {
 		return service.updateWeatherdata(name);
-
-	}
-
-	// Test: fast Ok, muss noch nachgeschaut werden
-	@RequestMapping(value = "/saveAllWeather", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Weatherdata> saveAllWeatherdata(String name) {
-		return service.saveAllWeatherdata(name);
 
 	}
 }

@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
@@ -58,8 +59,14 @@ public class Weatherdata implements Serializable {
 	private double temp_max;
 
 	private Double speed;
+	@JsonInclude()
+	@javax.persistence.Transient
 	private Integer speedy;
 	private Integer deg;
+
+	@JsonInclude()
+	@javax.persistence.Transient
+	private Object value;
 
 	public Weatherdata(Long id, String name, Date timezone, Date dt, String base, int visibility, Long cod, double lon,
 			double lat, String countryCode, long sunrise, long sunset, long weatherId, String icon, String main,
@@ -356,8 +363,10 @@ public class Weatherdata implements Serializable {
 
 	@JsonProperty("coord")
 	public void setCoord(Map<String, Object> coord) {
+		// setLon((Integer) coord.get("lon"));// für Hamburg mit Integer sein
 		setLon((double) coord.get("lon"));
 		setLat((double) coord.get("lat"));
+		// setLat((Integer) coord.get("lat")); // Mainz muss Integer sein
 	}
 
 	@JsonProperty("weather")
@@ -384,6 +393,7 @@ public class Weatherdata implements Serializable {
 		// if (speed instanceof Double) {
 
 		setSpeed((double) wind.get("speed"));
+		// setSpeed((Integer) wind.get("speed")); // für Douala muss Integer sein
 		// } else if (speedy instanceof Integer) {
 		//
 		// setSpeedy((Integer) wind.get("speed"));

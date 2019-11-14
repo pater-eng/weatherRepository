@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import de.application.entities.Weatherdata;
-import de.application.services.WeatherService;
 
 @Component
 @Configuration
@@ -31,9 +30,6 @@ public class WeatherClient {
 	private String apiKey;
 	private static final String BASE_RESOURCE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
 	private static final String APIKEY_URL = "&APPID=";
-
-	@Autowired
-	private WeatherService service;
 
 	public Weatherdata searchCityName(String name) {
 

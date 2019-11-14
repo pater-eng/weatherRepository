@@ -14,6 +14,4 @@ public interface WeatherService {
 
 	public List<Weatherdata> listWeatherdata();
 
-	public List<Weatherdata> saveAllWeatherdata(String name);
-
 }
