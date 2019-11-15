@@ -35,11 +35,9 @@ public class WeatherServiceImpl implements WeatherService {
 		if (!this.listWeatherdata().contains(data)) {
 			favoriten.add(data);
 			for (int i = 0; i < favoriten.size(); i++) {
-				return weatherRepo.save(favoriten.get(i));
-
+				weatherRepo.save(favoriten.get(i));
+				break;
 			}
-		} else {
-
 		}
 		return data;
 	}

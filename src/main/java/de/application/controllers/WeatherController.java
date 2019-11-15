@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.application.entities.Weatherdata;
+import de.application.repositories.WeatherRepository;
 import de.application.services.WeatherService;
 
 @RestController
@@ -20,49 +21,25 @@ import de.application.services.WeatherService;
 public class WeatherController {
 
 	@Autowired
-	private WeatherProperties props;
+	private WeatherService service;
 
 	@Autowired
-	private WeatherService service;
+	private WeatherRepository repo;
 
 	@Value(value = "${api.Key}")
 	private String apiKey;
-
-	// Test
-	@RequestMapping("/hello")
-	public String saysHello() {
-		return props.getWelcome() + " Bro";
-	}
-
-	// Test
-	@RequestMapping("/dit")
-	public String ditHello() {
-		return props.getWelcome() + " Bro";
-	}
-
-	// Test
-	@RequestMapping("/untour/{name}")
-	public String ditUnTour(@PathVariable String name) {
-		if (!name.isEmpty()) {
-
-			return bastleString() + " un Tour!!!!" + name;
-		}
-		return null;
-	}
-
-	// Test
-	public String bastleString() {
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < 10; i++) {
-			builder.append(i + ", ");
-		}
-		return builder.toString();
-	}
 
 	// Test: OK
 	@RequestMapping(value = "/weather/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Weatherdata getCityName(@PathVariable String name) {
 		return service.findCityWithName(name);
+
+	}
+
+	// Test: OK
+	@RequestMapping(value = "/weathercity/{name}/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Weatherdata getWeatherCity(@PathVariable String name, @PathVariable Long id) {
+		return repo.findByName(name, id);
 
 	}
 
