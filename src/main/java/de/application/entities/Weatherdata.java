@@ -392,7 +392,7 @@ public class Weatherdata implements Serializable {
 
 		// if (speed instanceof Double) {
 
-		setSpeed((double) wind.get("speed"));
+		setSpeed((Double) wind.get("speed"));
 		// setSpeed((Integer) wind.get("speed")); // für Douala muss Integer sein
 		// } else if (speedy instanceof Integer) {
 		//

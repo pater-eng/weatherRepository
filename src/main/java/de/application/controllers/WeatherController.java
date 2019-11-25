@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +44,12 @@ public class WeatherController {
 
 	}
 
+	@RequestMapping(value = "/weathercityName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Weatherdata getWeatherCityName(@PathVariable String name) {
+		return repo.findByCityName(name);
+
+	}
+
 	// Test: OK
 	@RequestMapping(value = "/allWeather", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Weatherdata> getListAllWeatherFavoriten() {
@@ -58,7 +65,8 @@ public class WeatherController {
 
 	// Test: Ok
 	@RequestMapping(value = "/updateWeather/{name}/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Weatherdata updateWeatherdata(@PathVariable String name, Weatherdata daten, @PathVariable Long id) {
+	public Weatherdata updateWeatherdata(@PathVariable String name, @RequestBody Weatherdata daten,
+			@PathVariable Long id) {
 		return service.updateWeatherdata(name, daten, id);
 
 	}

@@ -34,8 +34,10 @@ public class WeatherServiceImpl implements WeatherService {
 		Weatherdata data = client.searchCityName(name);
 		if (!this.listWeatherdata().contains(data)) {
 			favoriten.add(data);
-			for (int i = 0; i < favoriten.size(); i++) {
+			int i = 0;
+			while (i < favoriten.size()) {
 				weatherRepo.save(favoriten.get(i));
+				i++;
 				break;
 			}
 		}
