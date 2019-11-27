@@ -5,12 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,9 +25,6 @@ public class Weatherdata implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
 	private Long id;
 	private String name;
 	private Date timezone;
@@ -68,10 +61,10 @@ public class Weatherdata implements Serializable {
 	@javax.persistence.Transient
 	private Object value;
 
-	public Weatherdata(Long id, String name, Date timezone, Date dt, String base, int visibility, Long cod, double lon,
-			double lat, String countryCode, long sunrise, long sunset, long weatherId, String icon, String main,
-			String description, double temperature, Integer pressure, Integer humidity, double temp_min,
-			double temp_max, double speed, Integer deg) {
+	public Weatherdata(long id, String name, Date timezone, Date dt, String base, int visibility, Long cod, double lon,
+			double lat, String countryCode, long sunrise, long sunset, String geIcon, String description,
+			double temperature, Integer pressure, Integer humidity, double temp_min, double temp_max, Double speed,
+			Integer deg) {
 		super();
 		this.id = getId();
 		this.name = getName();
@@ -85,9 +78,9 @@ public class Weatherdata implements Serializable {
 		this.countryCode = getCountryCode();
 		this.sunrise = getSunrise();
 		this.sunset = getSunset();
-		this.weatherId = weatherId;
+		// this.weatherId = weatherId;
 		this.icon = getIcon();
-		this.main = main;
+		// this.main = main;
 		this.description = getDescription();
 		this.temperature = getTemperature();
 		this.pressure = getPressure();

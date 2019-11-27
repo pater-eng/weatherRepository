@@ -59,15 +59,28 @@ public class WeatherController {
 
 	// Test: OK
 	@RequestMapping(value = "/saveWeatherdata/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Weatherdata saveWeatherdata(@PathVariable String name) {
+	public Weatherdata saveWeather(@PathVariable String name) {
 		return service.saveWeather(name);
+
+	}
+
+	@RequestMapping(value = "/saveWeatherdata", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Weatherdata saveWeatherdata(@RequestBody Weatherdata daten) {
+		return service.saveWeather(daten);
+
 	}
 
 	// Test: Ok
-	@RequestMapping(value = "/updateWeather/{name}/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Weatherdata updateWeatherdata(@PathVariable String name, @RequestBody Weatherdata daten,
-			@PathVariable Long id) {
-		return service.updateWeatherdata(name, daten, id);
+	@RequestMapping(value = "/updateWeather", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Weatherdata updateWeatherdata(@RequestBody Weatherdata daten) {
+		return service.updateWeatherdata(daten);
+
+	}
+
+	// Test: OK
+	@RequestMapping(value = "/deleteWeather/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void getWeatherId(@PathVariable long id) {
+		repo.deleteById(id);
 
 	}
 }
