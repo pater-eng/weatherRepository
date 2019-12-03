@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -40,9 +41,9 @@ public class Weatherdata implements Serializable {
 	private long sunrise;
 	private long sunset;
 
-	private long weatherId;
+	
 	private String icon;
-	private String main;
+	
 	private String description;
 
 	private double temperature;
@@ -52,14 +53,16 @@ public class Weatherdata implements Serializable {
 	private double temp_max;
 
 	private Double speed;
-	@JsonInclude()
-	@javax.persistence.Transient
-	private Integer speedy;
+
 	private Integer deg;
 
+//	@JsonInclude()
+//	@javax.persistence.Transient
+//	private Object value;
+
 	@JsonInclude()
-	@javax.persistence.Transient
-	private Object value;
+	@Column(name = "favorite")
+	private boolean isFavorite;
 
 	public Weatherdata(long id, String name, Date timezone, Date dt, String base, int visibility, Long cod, double lon,
 			double lat, String countryCode, long sunrise, long sunset, String geIcon, String description,
@@ -78,9 +81,7 @@ public class Weatherdata implements Serializable {
 		this.countryCode = getCountryCode();
 		this.sunrise = getSunrise();
 		this.sunset = getSunset();
-		// this.weatherId = weatherId;
 		this.icon = getIcon();
-		// this.main = main;
 		this.description = getDescription();
 		this.temperature = getTemperature();
 		this.pressure = getPressure();
@@ -226,15 +227,6 @@ public class Weatherdata implements Serializable {
 		this.countryCode = countryCode;
 	}
 
-	// @JsonProperty("id")
-	// public long getWeatherId() {
-	// return this.weatherId;
-	// }
-	//
-	// @JsonSetter("id")
-	// public void setWeatherId(long weatherId) {
-	// this.weatherId = weatherId;
-	// }
 
 	@JsonProperty("icon")
 	public String geIcon() {
@@ -246,15 +238,6 @@ public class Weatherdata implements Serializable {
 		this.icon = icon;
 	}
 
-	// @JsonProperty("main")
-	// public String getWeatherMain() {
-	// return weatherMain;
-	// }
-	//
-	// @JsonSetter("main")
-	// public void setWeatherMain(String weatherMain) {
-	// this.weatherMain = weatherMain;
-	// }
 
 	@JsonProperty("description")
 	public String getDescription() {
@@ -326,15 +309,7 @@ public class Weatherdata implements Serializable {
 		this.speed = speed;
 	}
 
-	// @JsonProperty("speed")
-	public Integer getSpeedy() {
-		return speedy;
-	}
-
-	// @JsonSetter("speed")
-	public void setSpeedy(Integer speedy) {
-		this.speedy = speedy;
-	}
+	
 
 	@JsonProperty("deg")
 	public Integer getDeg() {
@@ -344,6 +319,15 @@ public class Weatherdata implements Serializable {
 	@JsonSetter("deg")
 	public void setDeg(Integer deg) {
 		this.deg = deg;
+	}
+
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
+
 	}
 
 	@JsonProperty("sys")
@@ -365,8 +349,6 @@ public class Weatherdata implements Serializable {
 	@JsonProperty("weather")
 	public void setWeather(List<Map<String, Object>> weatherEntries) {
 		Map<String, Object> weather = weatherEntries.get(0);
-		// setWeatherId((long) weather.get("id"));
-		// setWeatherMain((String) weather.get("main"));
 		setDescription((String) weather.get("description"));
 		setIcon((String) weather.get("icon"));
 	}
@@ -400,9 +382,9 @@ public class Weatherdata implements Serializable {
 	public String toString() {
 		return "Weatherdata [id=" + id + ", name=" + name + ", timezone=" + timezone + ", dt=" + dt + ", base=" + base
 				+ ", visibility=" + visibility + ", cod=" + cod + ", lon=" + lon + ", lat=" + lat + ", countryCode="
-				+ countryCode + ", sunrise=" + sunrise + ", sunset=" + sunset + ", weatherId=" + weatherId + ", icon="
-				+ icon + ", main=" + main + ", description=" + description + ", temperature=" + temperature
+				+ countryCode + ", sunrise=" + sunrise + ", sunset=" + sunset + ", icon="
+				+ icon + ", description=" + description + ", temperature=" + temperature
 				+ ", pressure=" + pressure + ", humidity=" + humidity + ", temp_min=" + temp_min + ", temp_max="
-				+ temp_max + ", speed=" + speed + ", speedy=" + speedy + ", deg=" + deg + ", value=" + value + "]";
+				+ temp_max + ", speed=" + speed + ", deg=" + deg + "]";
 	}
 }

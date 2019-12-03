@@ -53,7 +53,7 @@ public class WeatherController {
 	// Test: OK
 	@RequestMapping(value = "/allWeather", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Weatherdata> getListAllWeatherFavoriten() {
-		return service.listWeatherdata();
+		return service.listFavoritedata();
 
 	}
 

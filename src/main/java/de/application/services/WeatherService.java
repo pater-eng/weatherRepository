@@ -14,6 +14,6 @@ public interface WeatherService {
 
 	public Weatherdata updateWeatherdata(Weatherdata daten);
 
-	public List<Weatherdata> listWeatherdata();
+	public List<Weatherdata> listFavoritedata();
 
 }
