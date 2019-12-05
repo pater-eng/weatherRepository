@@ -21,5 +21,8 @@ public interface WeatherRepository extends JpaRepository<Weatherdata, Long> {
 	public Weatherdata save(String name);
 
 	public List<Weatherdata> findAll();
+	
+	@Query("Delete from Weatherdata w where w.name= :name")
+	public Weatherdata deleteByName(@Param("name") String name);
 
 }

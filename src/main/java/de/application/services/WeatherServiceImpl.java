@@ -77,8 +77,7 @@ public class WeatherServiceImpl implements WeatherService {
 			weather.setLon(daten.getLon());
 			weather.setName(daten.getName());
 			weather.setPressure(daten.getPressure());
-			weather.setSpeed(daten.getSpeed()); // kann verändert werden aber darf
-			// nicht null sein
+			weather.setSpeed(daten.getSpeed()); // kann verändert werden aber darf nicht null sein
 			weather.setSunrise(daten.getSunrise());
 			weather.setSunset(daten.getSunset());
 			weather.setTemp_max(daten.getTemp_max());
@@ -87,6 +86,7 @@ public class WeatherServiceImpl implements WeatherService {
 			weather.setTimezone(daten.getTimezone());
 			weather.setVisibility(daten.getVisibility());
 			weather.setCountryCode(daten.getCountryCode());
+			
 			
 			weatherRepo.save(weather);
 
@@ -100,10 +100,10 @@ public class WeatherServiceImpl implements WeatherService {
 		return weather;
 
 	}
+	
 
 	@Override
 	public List<Weatherdata> listFavoritedata() {
-
 		return weatherRepo.findAll();
 	}
 
