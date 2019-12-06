@@ -34,16 +34,15 @@ public class Weatherdata implements Serializable {
 	private int visibility;
 	private Long cod;
 
-	private double lon;
+	private Double lon;
 	private double lat;
 
 	private String countryCode;
 	private long sunrise;
 	private long sunset;
 
-	
 	private String icon;
-	
+
 	private String description;
 
 	private double temperature;
@@ -56,9 +55,9 @@ public class Weatherdata implements Serializable {
 
 	private Integer deg;
 
-//	@JsonInclude()
-//	@javax.persistence.Transient
-//	private Object value;
+	// @JsonInclude()
+	// @javax.persistence.Transient
+	// private Object value;
 
 	@JsonInclude()
 	@Column(name = "favorite")
@@ -227,7 +226,6 @@ public class Weatherdata implements Serializable {
 		this.countryCode = countryCode;
 	}
 
-
 	@JsonProperty("icon")
 	public String geIcon() {
 		return this.icon;
@@ -237,7 +235,6 @@ public class Weatherdata implements Serializable {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-
 
 	@JsonProperty("description")
 	public String getDescription() {
@@ -309,8 +306,6 @@ public class Weatherdata implements Serializable {
 		this.speed = speed;
 	}
 
-	
-
 	@JsonProperty("deg")
 	public Integer getDeg() {
 		return deg;
@@ -340,10 +335,18 @@ public class Weatherdata implements Serializable {
 
 	@JsonProperty("coord")
 	public void setCoord(Map<String, Object> coord) {
-		// setLon((Integer) coord.get("lon"));// für Hamburg mit Integer sein
-		setLon((double) coord.get("lon"));
-		setLat((double) coord.get("lat"));
-		// setLat((Integer) coord.get("lat")); // Mainz muss Integer sein
+		Object temp = coord.get("lon");
+		if (temp instanceof Integer) {
+			setLon(Double.parseDouble(temp.toString()));
+		} else {
+			setLon((double) temp);// für Hamburg mit Integer sein
+		}
+
+		if (coord.get("lat") instanceof Integer) {
+			setLat(Double.parseDouble(coord.get("lat").toString()));
+		} else {
+			setLat((double) coord.get("lat")); // Mainz muss Integer sein
+		}
 	}
 
 	@JsonProperty("weather")
@@ -364,27 +367,20 @@ public class Weatherdata implements Serializable {
 
 	@JsonProperty("wind")
 	public void setWind(Map<String, Object> wind) {
-
-		// if (speed instanceof Double) {
-
-		setSpeed((Double) wind.get("speed"));
-		// setSpeed((Integer) wind.get("speed")); // für Douala muss Integer sein
-		// } else if (speedy instanceof Integer) {
-		//
-		// setSpeedy((Integer) wind.get("speed"));
-		//
-		// }
+		if (wind.get("speed") instanceof Integer) {
+			setSpeed((Double) wind.get("speed"));
+		} else {
+			setSpeed(Double.parseDouble(wind.get("speed").toString()));
+		}
 		setDeg((Integer) wind.get("deg"));
-
 	}
 
 	@Override
 	public String toString() {
 		return "Weatherdata [id=" + id + ", name=" + name + ", timezone=" + timezone + ", dt=" + dt + ", base=" + base
 				+ ", visibility=" + visibility + ", cod=" + cod + ", lon=" + lon + ", lat=" + lat + ", countryCode="
-				+ countryCode + ", sunrise=" + sunrise + ", sunset=" + sunset + ", icon="
-				+ icon + ", description=" + description + ", temperature=" + temperature
-				+ ", pressure=" + pressure + ", humidity=" + humidity + ", temp_min=" + temp_min + ", temp_max="
-				+ temp_max + ", speed=" + speed + ", deg=" + deg + "]";
+				+ countryCode + ", sunrise=" + sunrise + ", sunset=" + sunset + ", icon=" + icon + ", description="
+				+ description + ", temperature=" + temperature + ", pressure=" + pressure + ", humidity=" + humidity
+				+ ", temp_min=" + temp_min + ", temp_max=" + temp_max + ", speed=" + speed + ", deg=" + deg + "]";
 	}
 }

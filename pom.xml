@@ -66,11 +66,11 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 			<!-- <version>2.1.4.RELEASE</version> -->
 		</dependency>
-		<dependency>
+		 <dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<version>19.3</version>
-		</dependency>
+			<version>19.3.0.0</version>
+		</dependency> 
 		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
 		<dependency>
 			<groupId>javax.persistence</groupId>
