@@ -4,18 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import de.application.controllers.WeatherClient;
 import de.application.entities.Weatherdata;
 import de.application.repositories.WeatherRepository;
 
-//@Service("WeatherService")
-@Scope(value = "session")
-@Component(value = "weatherService")
+@Service("WeatherService")
 public class WeatherServiceImpl implements WeatherService {
 
 	@Autowired
