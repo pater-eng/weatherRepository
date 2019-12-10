@@ -10,6 +10,7 @@ public class WeatherSpringBootApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WeatherSpringBootApplication.class, args);
+		System.out.println("Start");
 	}
 
 	@Bean
