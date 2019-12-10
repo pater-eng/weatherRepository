@@ -55,10 +55,6 @@ public class Weatherdata implements Serializable {
 
 	private Integer deg;
 
-	// @JsonInclude()
-	// @javax.persistence.Transient
-	// private Object value;
-
 	@JsonInclude()
 	@Column(name = "favorite")
 	private boolean isFavorite;
@@ -339,13 +335,13 @@ public class Weatherdata implements Serializable {
 		if (temp instanceof Integer) {
 			setLon(Double.parseDouble(temp.toString()));
 		} else {
-			setLon((double) temp);// für Hamburg mit Integer sein
+			setLon((double) temp);
 		}
 
 		if (coord.get("lat") instanceof Integer) {
 			setLat(Double.parseDouble(coord.get("lat").toString()));
 		} else {
-			setLat((double) coord.get("lat")); // Mainz muss Integer sein
+			setLat((double) coord.get("lat"));
 		}
 	}
 
@@ -358,7 +354,12 @@ public class Weatherdata implements Serializable {
 
 	@JsonProperty("main")
 	public void setMain(Map<String, Object> main) {
-		setTemperature((double) main.get("temp"));
+		if (main.get("temp") instanceof Integer) {
+			setTemperature((double) main.get("temp"));
+		} else {
+			setTemperature(Double.parseDouble(main.get("temp").toString()));
+		}
+
 		setPressure((Integer) main.get("pressure"));
 		setHumidity((Integer) main.get("humidity"));
 		setTemp_min((double) main.get("temp_min"));
