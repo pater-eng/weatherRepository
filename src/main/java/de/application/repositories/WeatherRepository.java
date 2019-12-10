@@ -1,7 +1,7 @@
 package de.application.repositories;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,9 +20,9 @@ public interface WeatherRepository extends JpaRepository<Weatherdata, Long> {
 
 	public Weatherdata save(String name);
 
-	public List<Weatherdata> findAll();
-	
 	@Query("Delete from Weatherdata w where w.name= :name")
 	public Weatherdata deleteByName(@Param("name") String name);
+
+	public Page<Weatherdata> findAll(Pageable pageable);
 
 }

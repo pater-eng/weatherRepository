@@ -1,22 +1,26 @@
 package de.application.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import de.application.entities.Weatherdata;
 import de.application.repositories.WeatherRepository;
 import de.application.services.WeatherService;
 
-@RestController
+//@RestController
+@Scope(value = "session")
+@Component(value = "weatherController")
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*") // Ermöglicht den Zugriff auf Backend-Services
 public class WeatherController {
@@ -37,30 +41,16 @@ public class WeatherController {
 
 	}
 
-	// Test: OK
-	@RequestMapping(value = "/weathercity/{name}/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Weatherdata getWeatherCity(@PathVariable String name, @PathVariable Long id) {
-		return repo.findByName(name, id);
-
-	}
-
 	@RequestMapping(value = "/weathercityName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Weatherdata getWeatherCityName(@PathVariable String name) {
 		return repo.findByCityName(name);
 
 	}
 
-	// Test: OK
-	@RequestMapping(value = "/allWeather", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Weatherdata> getListAllWeatherFavoriten() {
-		return service.listFavoritedata();
-
-	}
-
-	// Test: OK
-	@RequestMapping(value = "/saveWeatherdata/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Weatherdata saveWeather(@PathVariable String name) {
-		return service.saveWeather(name);
+	// mit Pageable
+	@RequestMapping(value = "/listAllWeather", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Page<Weatherdata> getListAllWeather(@RequestParam(name = "page", defaultValue = "0") int page) {
+		return service.findAll(PageRequest.of(page, 5));
 
 	}
 

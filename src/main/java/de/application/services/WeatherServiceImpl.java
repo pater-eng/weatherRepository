@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import de.application.controllers.WeatherClient;
 import de.application.entities.Weatherdata;
 import de.application.repositories.WeatherRepository;
 
-@Service("WeatherService")
+//@Service("WeatherService")
+@Scope(value = "session")
+@Component(value = "weatherService")
 public class WeatherServiceImpl implements WeatherService {
 
 	@Autowired
@@ -28,24 +33,9 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
-	public Weatherdata saveWeather(String name) {
-		Weatherdata data = client.searchCityName(name);
-		if (!this.listFavoritedata().contains(data) && !data.isFavorite()) {
-			favoriten.add(data);
-			int i = 0;
-			while (i <= favoriten.size()) {
-				weatherRepo.save(favoriten.get(i));
-				i++;
-				break;
-			}
-		}
-		return data;
-	}
-
-	@Override
 	public Weatherdata saveWeather(Weatherdata daten) {
 
-		if (!this.listFavoritedata().contains(daten) && !daten.isFavorite()) {
+		if (daten.isFavorite() == true) {
 			favoriten.add(daten);
 			int i = 0;
 			while (i < favoriten.size()) {
@@ -60,8 +50,7 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	public Weatherdata updateWeatherdata(Weatherdata daten) {
 		Weatherdata weather = new Weatherdata();
-			
-		
+
 		if (daten.isFavorite() == true) {
 
 			weather.setFavorite(true);
@@ -86,25 +75,29 @@ public class WeatherServiceImpl implements WeatherService {
 			weather.setTimezone(daten.getTimezone());
 			weather.setVisibility(daten.getVisibility());
 			weather.setCountryCode(daten.getCountryCode());
-			
-			
-			weatherRepo.save(weather);
 
+			favoriten.add(weather);
+			int i = 0;
+			while (i < favoriten.size()) {
+				weatherRepo.save(favoriten.get(i));
+				i++;
+				break;
+			}
+			weatherRepo.save(weather);
 
 		} else if (daten.isFavorite() == false) {
 
 			daten.setFavorite(false);
-			 weather = daten;
+			weather = daten;
 		}
 
 		return weather;
 
 	}
-	
 
 	@Override
-	public List<Weatherdata> listFavoritedata() {
-		return weatherRepo.findAll();
+	public Page<Weatherdata> findAll(Pageable pageable) {
+		return weatherRepo.findAll(pageable);
 	}
 
 }
