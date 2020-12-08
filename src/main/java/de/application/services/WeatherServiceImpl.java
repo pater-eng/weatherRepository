@@ -31,6 +31,9 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public Weatherdata saveWeather(Weatherdata daten) {
+		if (daten == null) {
+			return null;
+		}
 
 		if (daten.isFavorite() == true) {
 			favoriten.add(daten);
@@ -47,7 +50,6 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	public Weatherdata updateWeatherdata(Weatherdata daten) {
 		Weatherdata weather = new Weatherdata();
-
 		if (daten.isFavorite() == true) {
 
 			weather.setFavorite(true);
@@ -86,6 +88,15 @@ public class WeatherServiceImpl implements WeatherService {
 
 			daten.setFavorite(false);
 			weather = daten;
+			favoriten.add(weather);
+			int i = 0;
+			while (i < favoriten.size()) {
+				weatherRepo.save(favoriten.get(i));
+				i++;
+				break;
+			}
+			weatherRepo.save(weather);
+
 		}
 
 		return weather;

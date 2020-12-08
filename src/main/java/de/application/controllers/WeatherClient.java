@@ -28,6 +28,8 @@ public class WeatherClient {
 
 	@Value(value = "${api.Key}")
 	private String apiKey;
+	// https://kibana.infraxo-dev.com/app/kibana#/dashboards?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))
+	// http://api.openweathermap.org/data/2.5/weather?q=yaounde&APPID=d0196a86a907050089b0ea5e8c552923
 	private static final String BASE_RESOURCE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
 	private static final String APIKEY_URL = "&APPID=";
 
@@ -51,4 +53,5 @@ public class WeatherClient {
 		}
 		return daten;
 	}
+
 }

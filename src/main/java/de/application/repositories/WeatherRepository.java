@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import de.application.entities.Weatherdata;
 
+// interface est basee sur Springdata
+// JpaRepository permet l'utilisation du webservice
 @Repository
 public interface WeatherRepository extends JpaRepository<Weatherdata, Long> {
 
@@ -18,7 +20,7 @@ public interface WeatherRepository extends JpaRepository<Weatherdata, Long> {
 	@Query("select w from Weatherdata w where w.name like :x")
 	public Weatherdata findByCityName(@Param("x") String name);
 
-	public Weatherdata save(String name);
+	// public Weatherdata save(String name);
 
 	@Query("Delete from Weatherdata w where w.name= :name")
 	public Weatherdata deleteByName(@Param("name") String name);

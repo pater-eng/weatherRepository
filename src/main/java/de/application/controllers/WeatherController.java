@@ -40,8 +40,9 @@ public class WeatherController {
 
 	@RequestMapping(value = "/weathercityName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Weatherdata getWeatherCityName(@PathVariable String name) {
-		return repo.findByCityName(name);
 
+		Weatherdata data = repo.findByCityName(name);
+		return data != null ? data : null;
 	}
 
 	// mit Pageable
@@ -54,7 +55,6 @@ public class WeatherController {
 	@RequestMapping(value = "/saveWeatherdata", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Weatherdata saveWeatherdata(@RequestBody Weatherdata daten) {
 		return service.saveWeather(daten);
-
 	}
 
 	// Test: Ok

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -378,10 +380,6 @@ public class Weatherdata implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Weatherdata [id=" + id + ", name=" + name + ", timezone=" + timezone + ", dt=" + dt + ", base=" + base
-				+ ", visibility=" + visibility + ", cod=" + cod + ", lon=" + lon + ", lat=" + lat + ", countryCode="
-				+ countryCode + ", sunrise=" + sunrise + ", sunset=" + sunset + ", icon=" + icon + ", description="
-				+ description + ", temperature=" + temperature + ", pressure=" + pressure + ", humidity=" + humidity
-				+ ", temp_min=" + temp_min + ", temp_max=" + temp_max + ", speed=" + speed + ", deg=" + deg + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 }
